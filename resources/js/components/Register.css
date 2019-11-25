@@ -1,0 +1,21 @@
+.inputs-container {
+	display: inline-block;
+	max-width: 100%;
+	text-align: left;
+	font-family: 'Roboto', Arial;
+}
+
+.description {
+	display: inline-block;
+	min-width: 100px;
+	text-align: left;
+}
+
+.inputs {
+	display: inline-block;
+	text-align: left;
+}
+
+.btn {
+	width: 100%;
+}

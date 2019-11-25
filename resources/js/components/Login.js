@@ -35,17 +35,17 @@ class Login extends React.Component {
 
 	handleLogin(e) {
 		console.log("Login");
-		axios.post("./api/attempt-login", this.state).then((result) => {
+		axios.post("./api/login-user", this.state).then((result) => {
 			console.log(result);
 		});
 	}
 
 	render() {
 		return (
-			<div>
-				<span>Username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange(C_USERNAME)} placeholder="Enter a username" /></span>		
-				<span>Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange(C_PASSWORD)}  placeholder="Enter a password" /></span>
-				<button onClick={this.handleLogin}>Login</button>
+			<div className="inputs-container">
+				<div className="inputs-inner"><div className="description"><span>Username:</span></div><div className="inputs"><input type="text" name="username" value={this.state.username} onChange={this.handleChange(C_USERNAME)} placeholder="Enter a username" /></div></div>		
+				<div className="inputs-inner"><div className="description"><span>Password:</span></div><div className="inputs"><input type="password" name="password" value={this.state.password} onChange={this.handleChange(C_PASSWORD)}  placeholder="Enter a password" /></div></div>
+				<div><button className="login-btn" onClick={this.handleLogin}>Login</button></div>
 			</div>
 		);
 	}

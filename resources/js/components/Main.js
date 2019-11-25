@@ -7,6 +7,7 @@ import './Main.css';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
+import RoomTemplate from './RoomTemplate';
 
 class Main extends React.Component {
     constructor() {
@@ -26,6 +27,7 @@ class Main extends React.Component {
                             <Link to="/home" className="link"><span className="link">HOME</span></Link>
                             <Link to="/login" className="link"><span className="link">LOGIN</span></Link>
                             <Link to="/register" className="link"><span className="link">REGISTER</span></Link>
+                            <Link to="/lounge" className="link"><span className="link">LOUNGE</span></Link>
                         </div>
                     </div>
 
@@ -35,6 +37,7 @@ class Main extends React.Component {
                             <Route path="/home" component={Home}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
+                            <Route path="/lounge" render={(props) => <RoomTemplate {...props} roomName="Lounge"/>}/>
                         </Switch>
                     </div>
                 </Router>
