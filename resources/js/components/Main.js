@@ -13,6 +13,15 @@ class Main extends React.Component {
     constructor() {
         super();
         this.title = "web-chat-v2";
+
+        this.state = {
+            loggedIn: false,
+            username: ""
+        };
+    }
+
+    updateLogin(loginData) {
+        this.setState({loggedIn: loginData.status, username: loginData.username});
     }
 
     render() {
@@ -35,7 +44,7 @@ class Main extends React.Component {
                         <Switch>
                             <Redirect exact from="/" to="/home"/>
                             <Route path="/home" component={Home}/>
-                            <Route path="/login" component={Login}/>
+                            <Route path="/login" render={(props) => <Login updateLogin={this.updateLogin}/>}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/lounge" render={(props) => <RoomTemplate {...props} roomName="Lounge"/>}/>
                         </Switch>

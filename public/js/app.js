@@ -73785,9 +73785,14 @@ function (_React$Component) {
   }, {
     key: "handleLogin",
     value: function handleLogin(e) {
+      var _this3 = this;
+
       console.log("Login");
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("./api/login-user", this.state).then(function (result) {
-        console.log(result);
+        _this3.props.updateLogin({
+          "status": result.data.status,
+          "username": result.data.username
+        });
       });
     }
   }, {
@@ -73924,12 +73929,26 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this));
     _this.title = "web-chat-v2";
+    _this.state = {
+      loggedIn: false,
+      username: ""
+    };
     return _this;
   }
 
   _createClass(Main, [{
+    key: "updateLogin",
+    value: function updateLogin(loginData) {
+      this.setState({
+        loggedIn: loginData.status,
+        username: loginData.username
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], {
@@ -73971,7 +73990,11 @@ function (_React$Component) {
         component: _Home__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/login",
-        component: _Login__WEBPACK_IMPORTED_MODULE_5__["default"]
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            updateLogin: _this2.updateLogin
+          });
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/register",
         component: _Register__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -74117,7 +74140,7 @@ function (_React$Component) {
     value: function handleRegister(e) {
       console.log("Register");
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("./api/new-user", this.state).then(function (result) {
-        console.log(result);
+        console.log(result.data);
       });
     }
   }, {

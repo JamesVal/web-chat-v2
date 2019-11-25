@@ -36,7 +36,7 @@ class Login extends React.Component {
 	handleLogin(e) {
 		console.log("Login");
 		axios.post("./api/login-user", this.state).then((result) => {
-			console.log(result);
+			this.props.updateLogin({"status": result.data.status, "username": result.data.username});
 		});
 	}
 

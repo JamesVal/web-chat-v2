@@ -45,7 +45,7 @@ class UserController extends Controller
 			Log::debug("Could not create username: " . $data["username"]);
     	}
 
-		return response()->json(["result" => $result, "error" => $errorMsg]);
+		return response()->json(["status" => $result, "error" => $errorMsg]);
     }
 
     public function loginUser(Request $request) {
@@ -53,13 +53,15 @@ class UserController extends Controller
         $result = false;
         $errorMsg = "";
         $errCode = $this->checkLogin($data);
+        $username = $data["username"];
 
         if ($errCode == 0) {
             $result = true;
         } else {
+            $username = "";
             $errorMsg = "Bad Login";
         }
 
-        return response()->json(["result" => $result, "error" => $errorMsg]);
+        return response()->json(["status" => $result, "username" => $username, "error" => $errorMsg]);
     }
 }
