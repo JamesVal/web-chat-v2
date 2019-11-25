@@ -2,14 +2,30 @@ body {
 	margin: 0;
 }
 
-.links-header {
-	text-align: right;
+.content {
+	padding: 10px;
+}
+
+.header {
 	padding: 15px;
 	font-family: 'Roboto', Arial;
 	background-color: #4d4d4d;
+	color: #80ffff;
+	font-weight: bold;
+	display: flex;
+}
+
+.header > div {
+	width: 100%;
+}
+
+.links-header {
+	text-align: right;
+
 }
 
 .link {
 	text-decoration: none;
-	margin: 15px;
+	margin: 5px;
+	color: #80ffff;
 }

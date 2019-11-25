@@ -6416,7 +6416,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n\tmargin: 0;\n}\n\n.links-header {\n\ttext-align: right;\n\tpadding: 15px;\n\tfont-family: 'Roboto', Arial;\n\tbackground-color: #4d4d4d;\n}\n\n.link {\n\ttext-decoration: none;\n\tmargin: 15px;\n}", ""]);
+exports.push([module.i, "body {\n\tmargin: 0;\n}\n\n.content {\n\tpadding: 10px;\n}\n\n.header {\n\tpadding: 15px;\n\tfont-family: 'Roboto', Arial;\n\tbackground-color: #4d4d4d;\n\tcolor: #80ffff;\n\tfont-weight: bold;\n\tdisplay: -webkit-box;\n\tdisplay: flex;\n}\n\n.header > div {\n\twidth: 100%;\n}\n\n.links-header {\n\ttext-align: right;\n\n}\n\n.link {\n\ttext-decoration: none;\n\tmargin: 5px;\n\tcolor: #80ffff;\n}", ""]);
 
 // exports
 
@@ -73873,28 +73873,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-/*
-        <Router>
-        <div className="links-container">
-        <Link to="/home" className="link"><span className="link">Home</span></Link> |&nbsp;
-        <Link to="/i1" className="link"><span className="link">Inventory 1</span></Link> |&nbsp;
-        <Link to="/i2" className="link"><span className="link">Inventory 2</span></Link> |&nbsp;
-        <Link to="/i3" className="link"><span className="link">Inventory 3</span></Link> |&nbsp;
-        <Link to="/login" className="link"><span className="link">Login</span></Link>
-        </div>
-        <div className="content">
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="/home"/>}/>
-            <Route path="/home" component={Welcome}/>
-            <Route path="/needauth" component={NeedsAuth}/>
-            <Route path="/nopermission" component={NoPermission}/>
-            <Route path="/login" render={(props) => <Login {...props} onLoginUpdate={this.handleLogin}/>}/>
-            {inventoryArr}
-          </Switch>
-        </div>
-        </Router>
-        
-*/
 
 var Main =
 /*#__PURE__*/
@@ -73902,9 +73880,13 @@ function (_React$Component) {
   _inherits(Main, _React$Component);
 
   function Main() {
+    var _this;
+
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Main).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this));
+    _this.title = "web-chat-v2";
+    return _this;
   }
 
   _createClass(Main, [{
@@ -73912,11 +73894,13 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], {
         basename: "/main"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "logo"
+      }, this.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "links-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/home",
@@ -73933,7 +73917,9 @@ function (_React$Component) {
         className: "link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "link"
-      }, "REGISTER"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+      }, "REGISTER")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
         exact: true,
         from: "/",
         to: "/home"
