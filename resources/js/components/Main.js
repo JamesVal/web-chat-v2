@@ -6,6 +6,7 @@ import './Main.css';
 
 import Home from './Home';
 import Login from './Login';
+import Logout from './Logout';
 import Register from './Register';
 import RoomTemplate from './RoomTemplate';
 
@@ -15,16 +16,24 @@ class Main extends React.Component {
         this.title = "web-chat-v2";
 
         this.state = {
-            loggedIn: false,
-            username: ""
+            loginState: {
+                loggedIn: false,
+                username: ""
+            }
         };
+
+        this.updateLogin = this.updateLogin.bind(this);
     }
 
     updateLogin(loginData) {
-        this.setState({loggedIn: loginData.status, username: loginData.username});
+        this.setState({loginState: {loggedIn: loginData.status, username: loginData.username}});
     }
 
     render() {
+        let logLinkComponent = <Link to="/login" className="link"><span className="link">LOGIN</span></Link>;
+        if (this.state.loginState.loggedIn)
+            logLinkComponent = <Link to="/logout" className="link"><span className="link">LOGOUT</span></Link>;
+
         return (
             <div className="container">
                 <Router basename="/main">
@@ -34,7 +43,7 @@ class Main extends React.Component {
                         </div>
                         <div className="links-header">
                             <Link to="/home" className="link"><span className="link">HOME</span></Link>
-                            <Link to="/login" className="link"><span className="link">LOGIN</span></Link>
+                            {logLinkComponent}
                             <Link to="/register" className="link"><span className="link">REGISTER</span></Link>
                             <Link to="/lounge" className="link"><span className="link">LOUNGE</span></Link>
                         </div>
@@ -43,8 +52,9 @@ class Main extends React.Component {
                     <div className="content">
                         <Switch>
                             <Redirect exact from="/" to="/home"/>
-                            <Route path="/home" component={Home}/>
+                            <Route path="/home" render={(props) => <Home loginState={this.state.loginState}/>}/>
                             <Route path="/login" render={(props) => <Login updateLogin={this.updateLogin}/>}/>
+                            <Route path="/logout" render={(props) => <Logout updateLogin={this.updateLogin}/>}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/lounge" render={(props) => <RoomTemplate {...props} roomName="Lounge"/>}/>
                         </Switch>
