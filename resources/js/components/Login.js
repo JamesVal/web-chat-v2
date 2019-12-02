@@ -15,7 +15,9 @@ function Login(props) {
 	function handleLogin(e) {
 		axios.post("./api/login-user", {username: username, password: password}).then((result) => {
 			props.updateLogin({"status": result.data.status, "username": result.data.username});
-			history.push("/home");
+			console.log(result);
+			if (result.data.status === true)
+				history.push("/home");
 		});
 	}
 

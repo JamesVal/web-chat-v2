@@ -9,6 +9,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
 import RoomTemplate from './RoomTemplate';
+import QueueTest from './QueueTest';
 
 class Main extends React.Component {
     constructor() {
@@ -31,8 +32,14 @@ class Main extends React.Component {
 
     render() {
         let logLinkComponent = <Link to="/login" className="link"><span className="link">LOGIN</span></Link>;
-        if (this.state.loginState.loggedIn)
+        let rooms = <span></span>;
+        let register = <Link to="/register" className="link"><span className="link">REGISTER</span></Link>;
+
+        if (this.state.loginState.loggedIn) {
             logLinkComponent = <Link to="/logout" className="link"><span className="link">LOGOUT</span></Link>;
+            rooms = <Link to="/lounge" className="link"><span className="link">LOUNGE</span></Link>;
+            register = <span></span>;
+        }
 
         return (
             <div className="container">
@@ -44,8 +51,9 @@ class Main extends React.Component {
                         <div className="links-header">
                             <Link to="/home" className="link"><span className="link">HOME</span></Link>
                             {logLinkComponent}
-                            <Link to="/register" className="link"><span className="link">REGISTER</span></Link>
-                            <Link to="/lounge" className="link"><span className="link">LOUNGE</span></Link>
+                            {register}
+                            {rooms}
+                            <Link to="/queue-test" className="link"><span className="link">QUEUE TEST</span></Link>
                         </div>
                     </div>
 
@@ -57,6 +65,7 @@ class Main extends React.Component {
                             <Route path="/logout" render={(props) => <Logout updateLogin={this.updateLogin}/>}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/lounge" render={(props) => <RoomTemplate {...props} roomName="Lounge"/>}/>
+                            <Route path="/queue-test" component={QueueTest}/>
                         </Switch>
                     </div>
                 </Router>

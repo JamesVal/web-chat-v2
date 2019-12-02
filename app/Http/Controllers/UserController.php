@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,7 +20,18 @@ class UserController extends Controller
 		return (count($dbResults) == 0);
 	}
 
-    function checkLogin($data): int {
+    function checkLogin($credentials): int {
+        if (Auth::attempt($credentials, true)) {
+            Log::debug("Login Successful!");
+            /*Log::debug("User: " . json_encode((array)Auth::user()));*/
+            Log::debug("User: " . Auth::user()->getAuthIdentifier());
+            return true;
+        } else {
+            Log::debug("Login Failed!");
+            return false;
+        }
+
+        /*
         $dbResults = DB::select("SELECT * from users where username='" . $data["username"] . "'");
 
         if (count($dbResults) == 0) return self::LOGIN_NOT_FOUND;
@@ -28,6 +40,7 @@ class UserController extends Controller
             return self::BAD_PASSWORD;
         }
         return 0;
+        */
     }
 
     public function createUser(Request $request) {
@@ -49,13 +62,13 @@ class UserController extends Controller
     }
 
     public function loginUser(Request $request) {
-        $data = $request->input();
+        $data = $request->only("username", "password");
         $result = false;
         $errorMsg = "";
         $errCode = $this->checkLogin($data);
         $username = $data["username"];
 
-        if ($errCode == 0) {
+        if ($errCode == true) {
             $result = true;
         } else {
             $username = "";
