@@ -75497,7 +75497,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85494,11 +85494,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function Logout(props) {
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
-  props.updateLogin({
-    "status": false,
-    "username": ""
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("./api/logout-user", {}).then(function (result) {
+    props.updateLogin({
+      "status": false,
+      "username": ""
+    });
+    history.push("/home");
   });
-  history.push("/home");
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Logging out...");
 }
 
@@ -85612,6 +85614,19 @@ function (_React$Component) {
   }
 
   _createClass(Main, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      /* If the cookie was set, this "should" just return our data */
+      axios.get("./api/user").then(function (result) {
+        _this2.updateLogin({
+          "status": true,
+          "username": result.data.username
+        });
+      });
+    }
+  }, {
     key: "updateLogin",
     value: function updateLogin(loginData) {
       this.setState({
@@ -85624,7 +85639,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var logLinkComponent = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/login",
@@ -85686,21 +85701,21 @@ function (_React$Component) {
         path: "/home",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Home__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            loginState: _this2.state.loginState
+            loginState: _this3.state.loginState
           });
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/login",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            updateLogin: _this2.updateLogin
+            updateLogin: _this3.updateLogin
           });
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/logout",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Logout__WEBPACK_IMPORTED_MODULE_6__["default"], {
-            updateLogin: _this2.updateLogin
+            updateLogin: _this3.updateLogin
           });
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -85813,11 +85828,13 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       Echo.channel('laravel_database_test-channel').listen('.queue.post', function (e) {
-        console.log(e);
+        console.log("1", e);
       });
-      Echo.channel('laravel_database_test-channel').listen('.TEST', function (e) {
-        console.log(e);
-      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      Echo.leave('laravel_database_test-channel');
     }
   }, {
     key: "handleClick",

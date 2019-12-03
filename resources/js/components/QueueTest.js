@@ -11,12 +11,12 @@ class QueueTest extends React.Component {
 	componentDidMount() {
 		Echo.channel('laravel_database_test-channel')
 		    .listen('.queue.post', (e) => {
-		        console.log(e);
+		        console.log("1",e);
 		    });
-		Echo.channel('laravel_database_test-channel')
-		    .listen('.TEST', (e) => {
-		        console.log(e);
-		    });
+	}
+
+	componentWillUnmount() {
+		Echo.leave('laravel_database_test-channel');
 	}
 
 	handleClick(e) {

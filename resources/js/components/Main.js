@@ -26,6 +26,13 @@ class Main extends React.Component {
         this.updateLogin = this.updateLogin.bind(this);
     }
 
+    componentDidMount() {
+        /* If the cookie was set, this "should" just return our data */
+        axios.get("./api/user").then((result) => {
+            this.updateLogin({"status": true, "username": result.data.username});
+        });
+    }
+
     updateLogin(loginData) {
         this.setState({loginState: {loggedIn: loginData.status, username: loginData.username}});
     }

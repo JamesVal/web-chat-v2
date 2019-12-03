@@ -18,13 +18,9 @@ class ProcessTestQueue implements ShouldQueue
      *
      * @return void
      */
-    protected $square;
-
-    public function __construct(\App\Shapes\Square $square)
+    public function __construct()
     {
-        $this->square = $square;
-        $this->square->incrementCnt();
-        Log::debug("Create Job " . $this->square->getCount());
+        Log::debug("Create Job");
     }
 
     /**
@@ -34,6 +30,6 @@ class ProcessTestQueue implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug("Handle Job " . $this->square->getCount());
+        Log::debug("Handle Job");
     }
 }

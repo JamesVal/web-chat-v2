@@ -17,20 +17,25 @@ use App\Http\Middleware\CheckAccess;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth', CheckAccess::class])->get('/user', function (Request $request) {
+    return response()->json(["username" => Auth::user()->__get("username")]);
 });
 
 Route::post('/new-user', 'UserController@createUser');
 Route::post('/login-user', 'UserController@loginUser');
+Route::middleware('auth')->post('/logout-user', 'UserController@logoutUser');
 Route::post('/create-test-queue', 'QueueTController@createQueue');
+
+/* For this application, I'm just using the session cookie instead of an API-token */
+
 Route::middleware(['auth', CheckAccess::class])->post('/publish', function(Request $request) {
 	/*
 	*** This can bypass queue system ***
 	Redis::publish('test-channel', json_encode(['event' => 'TEST', 'data' => (object)['key1' => 1234, 'key2' => "STRING!"]]));
 	*/
 	Log::debug("Global User Publishing: " . json_encode((array)Auth::user()));
-	/*Log::debug("Request User Publishing: " . $request->user()->getAuthIdentifier());*/
 	event(new QueuePost());
 	return response()->json(["status" => "okayPub"]);
-});;
+});
+
+

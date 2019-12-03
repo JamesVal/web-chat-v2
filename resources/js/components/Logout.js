@@ -7,8 +7,10 @@ import './Logout.css';
 function Logout(props) {
 	let history = useHistory();	
 
-	props.updateLogin({"status": false, "username": ""});
-	history.push("/home");
+	axios.post("./api/logout-user", {}).then((result) => {
+		props.updateLogin({"status": false, "username": ""});
+		history.push("/home")
+	});
 
 	return(<div>Logging out...</div>);
 }
